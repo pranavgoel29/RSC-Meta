@@ -16,14 +16,12 @@ async function fetchCharacterData(character: string): Promise<CharacterData> {
     ironman: {
       name: "Iron Man",
       description: "Tony Stark, a billionaire genius turned superhero.",
-      imageUrl:
-        "https://raw.githubusercontent.com/pranavgoel29/test-repo/main/captain-america.jpg",
+      imageUrl: "/images/ironman.jpg",
     },
     "captain-america": {
       name: "Captain America",
       description: "Steve Rogers, the first Avenger and a symbol of freedom.",
-      imageUrl:
-        "https://raw.githubusercontent.com/pranavgoel29/test-repo/main/ironman.jpg",
+      imageUrl: "/images/captain-america.jpg",
     },
   };
 
