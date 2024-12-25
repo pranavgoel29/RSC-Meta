@@ -7,6 +7,10 @@ type CharacterData = {
   imageUrl: string;
 };
 
+type Params = {
+  character: string;
+};
+
 async function fetchCharacterData(character: string): Promise<CharacterData> {
   const data: { [key: string]: CharacterData } = {
     ironman: {
@@ -33,9 +37,10 @@ async function fetchCharacterData(character: string): Promise<CharacterData> {
 export async function generateMetadata({
   params,
 }: {
-  params: { character: string };
+  readonly params: Promise<Params>;
 }): Promise<Metadata> {
-  const characterData = await fetchCharacterData(params.character);
+  const { character } = await params;
+  const characterData = await fetchCharacterData(character);
 
   return {
     title: characterData.name,
@@ -57,9 +62,10 @@ export async function generateMetadata({
 export default async function CharacterPage({
   params,
 }: {
-  readonly params: { character: string };
+  readonly params: Promise<Params>;
 }) {
-  const characterData = await fetchCharacterData(params.character);
+  const { character } = await params;
+  const characterData = await fetchCharacterData(character);
 
   return (
     <div style={{ padding: "20px", textAlign: "center" }}>
