@@ -1,13 +1,12 @@
+import Image from "next/image";
 import { Metadata } from "next";
 
-// Define a type for the character data
 type CharacterData = {
   name: string;
   description: string;
   imageUrl: string;
 };
 
-// Mock function to simulate fetching data based on the route
 async function fetchCharacterData(character: string): Promise<CharacterData> {
   const data: { [key: string]: CharacterData } = {
     ironman: {
@@ -31,15 +30,12 @@ async function fetchCharacterData(character: string): Promise<CharacterData> {
   );
 }
 
-// Generate metadata dynamically based on the route
 export async function generateMetadata({
   params,
 }: {
   params: { character: string };
 }): Promise<Metadata> {
   const characterData = await fetchCharacterData(params.character);
-
-  console.log(characterData);
 
   return {
     title: characterData.name,
@@ -69,10 +65,13 @@ export default async function CharacterPage({
     <div style={{ padding: "20px", textAlign: "center" }}>
       <h1>{characterData.name}</h1>
       <p>{characterData.description}</p>
-      <img
+      <Image
         src={characterData.imageUrl}
         alt={`${characterData.name}`}
-        style={{ maxWidth: "100%" }}
+        width={600} // Provide explicit width
+        height={400} // Provide explicit height
+        priority // Preload the image for faster LCP
+        style={{ maxWidth: "100%", height: "auto" }} // Adjust for responsive design
       />
     </div>
   );
